@@ -1,0 +1,263 @@
+<app-barra-usuario></app-barra-usuario>
+<div id="l3" class="p-2 bg-dark text-white">Aqui, como Organizador, puede controlar las Ligas y Equipos que haya creado.</div>
+<div class="container">
+
+  <button id="ligas" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLiga">CREAR
+    LIGA</button>
+
+  <h2 id="ligas">LIGAS DEL USUARIO:</h2>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let lig of ligaModelGet ">
+
+      <div class="card text-center mb-3" id="perfiles">
+        <div class="card-header">
+          {{ lig._id }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Liga: {{lig.nombreLiga}}</h5>
+          <h5 class="card-title">Torneo asignado: {{lig.torneo}}</h5>
+
+          <button type="button" class="btn btn-primary" data-bs-target="#offcanvasTop" data-bs-toggle="offcanvas" (click)="getTabla(lig._id)">*TABLA*</button>
+          <button type="button" class="btn btn-warning" data-bs-target="#editarLiga" data-bs-toggle="modal"
+            (click)="getLigaForId(lig._id)">EDIT</button>
+          <button type="button" class="btn btn-danger" (click)="deleteLiga(lig._id)">DELETE</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <table id="tabla" class="table table-success table-sm table-striped">
+      <thead>
+          <tr>
+            <th scope="col">Equipo:</th>
+            <th scope="col">GF:</th>
+            <th scope="col">GC:</th>
+            <th scope="col">DG:</th>
+            <th scope="col">PJ:</th>
+          </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let goles of tablaModelGet">
+          <th scope="row">{{goles.nombreEquipo}}</th>
+          <td>{{goles.GF}}</td>
+          <td>{{goles.GC}}</td>
+          <td>{{goles.DG}}</td>
+          <td>{{goles.PJ}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<!--FORMULARIO PARA CREAR LIGAS-->
+<div class="modal fade" id="agregarLiga" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">CREAR Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreLiga" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombreLiga" name="nombreLiga" #nombreLiga="ngModel"
+              [(ngModel)]="ligaModelPost.nombreLiga" placeholder="Nombre de la liga">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postLiga()">AGREGAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA EDITAR LIGAS-->
+<div class="modal fade" id="editarLiga" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">EDITAR LIGA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreLiga" class="form-label">Nombre Liga</label>
+            <input type="text" class="form-control" id="inputNombreLiga" name="nombreLiga" #nombreLiga="ngModel"
+              [(ngModel)]="ligaModelGetId.nombreLiga" placeholder="Nombre de la liga">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="putLiga()">MODIFICAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!------------------------------------------------------------------------------------------------------------------>
+
+<div class="container">
+
+  <button id="ligas" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarEquipo">CREAR
+    EQUIPO</button>
+
+  <h2 id="ligas">EQUIPOS DEL USUARIO:</h2>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let eq of equipoModelGet ">
+
+      <div class="card text-center mb-3" id="perfiles">
+        <div class="card-body">
+          <h3 class="card-title">{{eq.nombreEquipo}}</h3>
+          <h5 class="card-title">Pais: {{eq.pais}}</h5>
+          <h5 class="card-title">Liga: {{eq.liga}}</h5>
+          <h5 class="card-title">GF: {{eq.GF}} - GC: {{eq.GC}}</h5>
+          <h5 class="card-title">DG: {{eq.DG}} - PJ: {{eq.PJ}}</h5>
+
+          <button type="button" class="btn btn-warning" data-bs-target="#editarEquipo" data-bs-toggle="modal"
+            (click)="getEquipoForId(eq._id)">EDIT</button>
+          <button type="button" class="btn btn-danger" (click)="deleteEquipo(eq._id)">DELETE</button>
+
+          <button id="CLA" type="button" class="btn btn-primary" data-bs-target="#actualizarMarcador" data-bs-toggle="modal"
+          (click)="getMarcadorForId(eq._id)">CLASIFICACIÓN...</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--FORMULARIO PARA CREAR EQUIPOS-->
+<div class="modal fade" id="agregarEquipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">CREAR EQUIPO:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-2">
+            <label for="inputNombreEquipo" class="form-label">Nombre Equipo:</label>
+            <input type="text" class="form-control" id="inputNombreEquipo" name="nombreEquipo" #nombreEquipo="ngModel"
+              [(ngModel)]="equipoModelPost.nombreEquipo" placeholder="Nombre del equipo">
+          </div>
+          <div class="mb-2">
+            <label for="inputPais" class="form-label">Pais:</label>
+            <input type="text" class="form-control" id="inputPais" name="pais" #pais="ngModel"
+              [(ngModel)]="equipoModelPost.pais" placeholder="Nombre del pais perteneciente">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Liga</label>:
+            <select name="liga" type="text" class="form-select" aria-label="Default select example" [(ngModel)]="equipoModelPost.liga">
+              <option *ngFor="let liga of ligaModelGet" [value]="liga.nombreLiga">{{liga.nombreLiga}}</option>
+            </select>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postEquipo()">AGREGAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA EDITAR EQUIPOS-->
+<div class="modal fade" id="editarEquipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">EDITAR EQUIPO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-2">
+            <label for="inputNombreEquipo" class="form-label">Nombre Equipo</label>
+            <input type="text" class="form-control" id="inputNombreEquipo" name="nombreEquipo" #nombreEquipo="ngModel"
+              [(ngModel)]="equipoModelGetId.nombreEquipo" placeholder="Nombre del equipo">
+          </div>
+          <div class="mb-2">
+            <label for="inputPais" class="form-label">Pais</label>
+            <input type="text" class="form-control" id="inputPais" name="pais" #pais="ngModel"
+              [(ngModel)]="equipoModelGetId.pais" placeholder="Pais">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Liga</label>:
+            <select name="liga" type="text" class="form-select" aria-label="Default select example" [(ngModel)]="equipoModelGetId.liga">
+              <option *ngFor="let liga of ligaModelGet" [value]="liga.nombreLiga">{{liga.nombreLiga}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="putEquipo()">MODIFICAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA ACTUALIZA LA CLASIFICACIÓN-->
+<div class="modal fade" id="actualizarMarcador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="staticBackdropLabel">ACTUALIZAR MARCADOR :</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-2">
+            <label for="inputGF" class="form-label">GF:</label>
+            <input type="number" class="form-control" id="inputGF" name="GF" #GF="ngModel"
+              [(ngModel)]="marcadorModelGetId.GF" placeholder="Goles a Favor">
+          </div>
+          <div class="mb-2">
+            <label for="inputGC" class="form-label">GC:</label>
+            <input type="number" class="form-control" id="inputGC" name="GC" #GC="ngModel"
+              [(ngModel)]="marcadorModelGetId.GC" placeholder="Goles en Contra">
+          </div>
+          <div class="mb-2">
+            <label for="inputDG" class="form-label">DG:</label>
+            <input type="number" class="form-control" id="inputDG" name="DG" #DG="ngModel"
+              [(ngModel)]="marcadorModelGetId.DG" placeholder="Diferencia de Goles">
+          </div>
+          <div class="mb-2">
+            <label for="inputPJ" class="form-label">PJ:</label>
+            <input type="number" class="form-control" id="inputPJ" name="PJ" #PJ="ngModel"
+              [(ngModel)]="marcadorModelGetId.PJ" placeholder="Partidos Jugados">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="putMarcador()">MODIFICAR</button>
+      </div>
+    </div>
+  </div>
+</div>

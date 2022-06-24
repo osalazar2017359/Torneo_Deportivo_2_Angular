@@ -1,0 +1,26 @@
+#ligas {
+  margin-top: 10px;
+}
+
+#CLA {
+  margin-top: 4px
+}
+
+#tabla {
+  text-align: center;
+  border-style: solid;
+  border-radius: 20px;
+  border: 5px;
+
+}
+
+.offcanvas {
+  margin-left: 450px; margin-top: 20px;
+  width: 600px;
+  height: 60vh;
+  border-radius: 20px;
+}
+#l3{
+  text-align: center;
+  font-size: 20px;
+}

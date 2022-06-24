@@ -1,0 +1,59 @@
+<app-barra-admin></app-barra-admin>
+<div id="l3" class="p-2 bg-dark text-white">Aqui usted puede asignar las Ligas del Usuario a sus Torneos (si no estan asignados ya).</div>
+<div class="container">
+
+  <button id="perfiles" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#asignarLiga">ASIGNAR LIGA A
+    TORNEO</button>
+
+  <h2 id="perfiles">LIGAS DEL USUARIO:</h2>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let lig of ligaModelGet">
+
+      <div class="card text-center mb-3" id="perfiles">
+        <div class="card-header">
+          {{ lig._id }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Liga: {{lig.nombreLiga}}</h5>
+          <h5 class="card-title">Torneo asignado: {{lig.torneo}}</h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--FORMULARIO PARA ASIGNAR UNA LIGA A X TORNEO-->
+<div class="modal fade" id="asignarLiga" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">ASIGNAR LIGA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreTorneo" class="form-label">Nombre Torneo</label>
+            <select name="torneo" type="text" class="form-select" aria-label="Default select example" [(ngModel)]="asigLigaPost.nombreTorneo">
+              <option *ngFor="let tor of torneoModelGet" [value]="tor.nombreTorneo">{{tor.nombreTorneo}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="inputNombreLiga" class="form-label">Nombre Liga</label>
+            <select name="liga" type="text" class="form-select" aria-label="Default select example" [(ngModel)]="asigLigaPost.nombreLiga">
+              <option *ngFor="let liga of ligaModelGet" [value]="liga.nombreLiga">{{liga.nombreLiga}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postAsigLiga()">AGREGAR</button>
+      </div>
+    </div>
+  </div>
+</div>

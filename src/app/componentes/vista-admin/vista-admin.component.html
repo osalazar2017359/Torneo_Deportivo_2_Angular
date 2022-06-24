@@ -1,0 +1,108 @@
+<app-barra-admin></app-barra-admin>
+<div id="l3" class="p-2 bg-dark text-white">Desde aqui usted como el Admin puede ver los Usuarios registrados, y los torneos que usted haya creado.</div>
+<div class="container">
+
+  <h2 id="perfiles">USUARIOS REGISTRADOS:</h2>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let usu of usuarioModelGet">
+
+      <div class="card text-center mb-3" id="perfiles">
+        <div class="card-header">
+          {{ usu.rol }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Nombre: {{usu.nombre}} {{usu.apellido}}</h5>
+          <h5 class="card-title">Cuenta: {{usu.usuario}}</h5>
+
+          <div *ngIf="usu.rol == 'Organizador'">
+            <button type="button" class="btn btn-primary" (click)="irLigas(usu._id)">VER</button>
+            <button type="button" class="btn btn-danger" (click)="deleteUsuarios(usu._id)">DELETE</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+
+  <h2>TORNEOS CREADOS:</h2>
+
+  <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#agregarTorneo">
+    Crear Torneo
+  </button>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let tor of torneoModelGet">
+
+      <div class="card text-center mb-3" id="perfiles">
+        <div class="card-header">
+          {{ tor._id }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{tor.nombreTorneo}}</h5>
+
+          <button type="button" class="btn btn-warning" data-bs-target="#editarTorneo" data-bs-toggle="modal"
+            (click)="getTorneoForId(tor._id)">EDIT</button>
+          <button type="button" class="btn btn-danger" (click)="deleteTorneo(tor._id)">DELETE</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA CREAR-->
+<div class="modal fade" id="agregarTorneo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">CREAR TORNEO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombreTorneo" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombreTorneo" name="nombreTorneo" #nombreTorneo="ngModel"
+              [(ngModel)]="torneoModelPost.nombreTorneo" placeholder="Nombre del Torneo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postTorneo()">AGREGAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA EDITAR-->
+<div class="modal fade" id="editarTorneo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">EDITAR TORNEO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputnombreTorneo" class="form-label">Nombre Torneo</label>
+            <input type="text" class="form-control" id="inputnombreTorneo" name="nombreTorneo" #nombreTorneo="ngModel"
+              [(ngModel)]="torneoModelGetId.nombreTorneo" placeholder="Nombre del Torneo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="putTorneo()">MODIFICAR</button>
+      </div>
+    </div>
+  </div>
+</div>

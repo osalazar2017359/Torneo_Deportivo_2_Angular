@@ -1,0 +1,39 @@
+<form>
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="mb-3 col-5">
+        <label for="exampleInputUsu1" class="form-label">Nombre/s:</label>
+        <input type="text" class="form-control" id="exampleInputUsu1" aria-describedby="usuarioHelp" name="nombre"
+          #nombre="ngModel" [(ngModel)]="usuarioModelPost.nombre">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="mb-3 col-5">
+        <label for="exampleInputUsu1" class="form-label">Apellido/s:</label>
+        <input type="text" class="form-control" id="exampleInputUsu1" aria-describedby="usuarioHelp" name="apellido"
+          #apellido="ngModel" [(ngModel)]="usuarioModelPost.apellido">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="mb-3 col-5">
+        <label for="exampleInputUsu1" class="form-label">Usuario:</label>
+        <input type="text" class="form-control" id="exampleInputUsu1" aria-describedby="usuarioHelp" name="usuario"
+          #usuario="ngModel" [(ngModel)]="usuarioModelPost.usuario">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="mb-3 col-5">
+        <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" #password="ngModel"
+          [(ngModel)]="usuarioModelPost.password">
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-1">
+        <button type="submit" class="btn btn-primary" (click)="register()">REGISTRARSE</button>
+      </div>
+    </div>
+
+  </div>
+</form>

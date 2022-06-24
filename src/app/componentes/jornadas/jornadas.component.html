@@ -1,0 +1,74 @@
+<app-barra-usuario></app-barra-usuario>
+
+<!--DEJAR PENDIENTE TODO LO RELACIONADO CON JORNADAS, PASAR A EQUIPOS Y LA ASIGNACIÓN DE ESTOS-->
+
+
+
+<div class="container">
+
+  <button id="jord" type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="asigPartido()"
+    >GENERAR JORNADAS</button> //data-bs-target="#generarJornadas"
+
+  <h2 id="jord">LIGAS DEL USUARIO:</h2>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngFor="let jor of dataJornadas">
+
+      <div class="card text-center mb-3" id="jord">
+        <div class="card-header">
+          {{ jor.No_Jornada }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Partido:</h5>
+          <h5 class="card-title">Equipo 1: {{jor.equipo1}}</h5>
+          <h5 class="card-title">Puntuación 1: {{jor.puntuacion1}}</h5>
+          <h5 class="card-title">Equipo 2: {{jor.equipo2}}</h5>
+          <h5 class="card-title">Puntuación 2: {{jor.puntuacion2}}</h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--FORMULARIO PARA GENERAR UNA JORNADA --COMPLETA-- DE LA LIGA
+<div class="modal fade" id="generarJornadas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">GENERAR JORNADA, Y PARTIDO:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputEquipo1" class="form-label">Nombre Equipo 1</label>
+            <input type="text" class="form-control" id="inputEquipo1" name="equipo1" #equipo1="ngModel"
+              [(ngModel)]="jornadaModelPost.partidos" placeholder="Nombre del equipo 1">
+          </div>
+          <div class="mb-3">
+            <label for="inputPuntuacion1" class="form-label">Puntuación Equipo 1</label>
+            <input type="text" class="form-control" id="inputPuntuacion1" name="puntuacion1" #puntuacion1="ngModel"
+              [(ngModel)]="jornadaModelPost.partidos" placeholder="Puntuación del equipo 1">
+          </div>
+          <div class="mb-3">
+            <label for="inputEquipo2" class="form-label">Nombre Equipo 2</label>
+            <input type="text" class="form-control" id="inputEquipo2" name="equipo2" #equipo2="ngModel"
+              [(ngModel)]="jornadaModelPost.partidos" placeholder="Nombre del equipo 2">
+          </div>
+          <div class="mb-3">
+            <label for="inputPuntuacion2" class="form-label">Puntuación Equipo 2</label>
+            <input type="text" class="form-control" id="inputPuntuacion2" name="puntuacion2" #puntuacion2="ngModel"
+              [(ngModel)]="jornadaModelPost.partidos" placeholder="Puntuación del equipo 2">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="asigPartido()">AGREGAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->

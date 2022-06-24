@@ -1,0 +1,24 @@
+<app-barra-usuario></app-barra-usuario>
+
+<table id="tabla" class="table table-success table-sm table-striped">
+  <thead>
+      <tr>
+        <th scope="col">Equipo:</th>
+        <th scope="col">GF:</th>
+        <th scope="col">GC:</th>
+        <th scope="col">DG:</th>
+        <th scope="col">PJ:</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let goles of tablaModelGet">
+      <th scope="row">{{goles.nombreEquipo}}</th>
+      <td>{{goles.GF}}</td>
+      <td>{{goles.GC}}</td>
+      <td>{{goles.DG}}</td>
+      <td>{{goles.PJ}}</td>
+    </tr>
+  </tbody>
+
+</table>
